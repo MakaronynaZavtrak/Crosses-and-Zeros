@@ -1,0 +1,132 @@
+#pragma once
+#include <string>
+using namespace std;
+struct Field
+{
+	bool gameContinue = true;
+	int freeslots = 9;
+	int markedSlots[9] = {};
+	int marks = 0;
+	string first;
+	string second;
+	string third;
+	string fourth;
+	string fivth;
+	string sixth;
+	string seventh;
+	string eighth;
+	string nineth;
+	string conditionSide;
+
+	void checkWinner() {
+		if (marks >= 5) {
+			if (conditionSide == "cross") {
+				if ((first == "cross" && second == "cross" && third == "cross") || (fourth == "cross" && fivth == "cross" && sixth == "cross") || (seventh == "cross" && eighth == "cross" && nineth == "cross") || (first == "cross" && fourth == "cross" && seventh == "cross") || (second == "cross" && fivth == "cross" && eighth == "cross") || (third == "cross" && sixth == "cross" && nineth == "cross") || (first == "cross" && fivth == "cross" && nineth == "cross") || (third == "cross" && fivth == "cross" && seventh == "cross")) {
+					cout << "You are winner!" << endl;
+					gameContinue = false;
+				}
+				else if ((first == "zero" && second == "zero" && third == "zero") || (fourth == "zero" && fivth == "zero" && sixth == "zero") || (seventh == "zero" && eighth == "zero" && nineth == "zero") || (first == "zero" && fourth == "zero" && seventh == "zero") || (second == "zero" && fivth == "zero" && eighth == "zero") || (third == "zero" && sixth == "zero" && nineth == "zero") || (first == "zero" && fivth == "zero" && nineth == "zero") || (third == "zero" && fivth == "zero" && seventh == "zero")) {
+					cout << "You are loser!" << endl;
+					gameContinue = false;
+				}
+			}
+			else if (conditionSide == "zero") {
+				if ((first == "cross" && second == "cross" && third == "cross") || (fourth == "cross" && fivth == "cross" && sixth == "cross") || (seventh == "cross" && eighth == "cross" && nineth == "cross") || (first == "cross" && fourth == "cross" && seventh == "cross") || (second == "cross" && fivth == "cross" && eighth == "cross") || (third == "cross" && sixth == "cross" && nineth == "cross") || (first == "cross" && fivth == "cross" && nineth == "cross") || (third == "cross" && fivth == "cross" && seventh == "cross")) {
+					cout << "You are loser!" << endl;
+					gameContinue = false;
+				}
+				else if ((first == "zero" && second == "zero" && third == "zero") || (fourth == "zero" && fivth == "zero" && sixth == "zero") || (seventh == "zero" && eighth == "zero" && nineth == "zero") || (first == "zero" && fourth == "zero" && seventh == "zero") || (second == "zero" && fivth == "zero" && eighth == "zero") || (third == "zero" && sixth == "zero" && nineth == "zero") || (first == "zero" && fivth == "zero" && nineth == "zero") || (third == "zero" && fivth == "zero" && seventh == "zero")) {
+					cout << "You are winner!" << endl;
+					gameContinue = false;
+				}
+			}
+			else if (freeslots == 0) {
+				cout << "Nobody has won!" << endl;
+				gameContinue = false;
+			}
+		}
+	}
+
+	bool checkOFExist(int number) {
+		int i = 0;
+		bool conseq = false;
+		while (conseq != true && i <= 8) {
+			if (number == markedSlots[i]) {
+				conseq = true;
+				return true;
+			}
+			else
+				i++;
+		};
+		return false;
+	}
+
+	void inputToFieldCross (int num) {
+		switch (num) {
+		case 1:
+			first = "cross";
+			break;
+		case 2:
+			second = "cross";
+			break;
+		case 3:
+			third = "cross";
+			break;
+		case 4:
+			fourth = "cross";
+			break;
+		case 5:
+			fivth = "cross";
+			break;
+		case 6:
+			sixth = "cross";
+			break;
+		case 7:
+			seventh = "cross";
+			break;
+		case 8:
+			eighth = "cross";
+			break;
+		case 9:
+			nineth = "cross";
+			break;
+		};
+		freeslots--;
+		marks++;
+	}
+
+	void inputToFieldZero(int num) {
+		switch (num) {
+		case 1:
+			first = "zero";
+			break;
+		case 2:
+			second = "zero";
+			break;
+		case 3:
+			third = "zero";
+			break;
+		case 4:
+			fourth = "zero";
+			break;
+		case 5:
+			fivth = "zero";
+			break;
+		case 6:
+			sixth = "zero";
+			break;
+		case 7:
+			seventh = "zero";
+			break;
+		case 8:
+			eighth = "zero";
+			break;
+		case 9:
+			nineth = "zero";
+			break;
+		};
+		freeslots--;
+		marks++;
+	}
+			
+};
