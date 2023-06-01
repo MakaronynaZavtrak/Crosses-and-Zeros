@@ -1,0 +1,98 @@
+#include <string>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include "Header.h"
+using namespace std;
+int main()
+{
+	Field A;
+	int yourTurn;
+	int enemyTurn;
+	srand(time(NULL));
+	int start = rand() % 2;
+	cout << start << endl;
+	if (start == 0) {
+		cout << "You are O!" << endl;
+		A.conditionSide = "zero";
+		enemyTurn = rand() % 10;
+		A.markedSlots[0] = enemyTurn;
+		cout << "Enemy has marked the cage " << enemyTurn << endl;
+		A.inputToFieldCross(enemyTurn);
+		cout << "Your turn! Choose the cage!" << endl;
+		cin >> yourTurn;
+		while (A.checkOFExist(yourTurn) == true) {
+			cout << "This cage is not free! Try again" << endl;
+			cin >> yourTurn;
+		};
+		A.markedSlots[1] = yourTurn;
+		A.inputToFieldZero(yourTurn);
+		int j = 2;
+		while (A.freeslots != 0) {
+			while (A.checkOFExist(enemyTurn) == true) {
+				enemyTurn = rand() % 10;
+			};
+			A.inputToFieldCross(enemyTurn);
+			A.markedSlots[j] = enemyTurn;
+			j++;
+			cout << "Enemy has marked the cage " << enemyTurn << endl;
+			A.checkWinner();
+			if (A.gameContinue == false)
+				break;
+			cin >> yourTurn;
+			while (A.checkOFExist(yourTurn) == true) {
+				cout << "This cage is not free! Try again" << endl;
+				cin >> yourTurn;
+			};
+			A.inputToFieldZero(yourTurn);
+			A.markedSlots[j] = yourTurn;
+			j++;
+			A.checkWinner();
+			if (A.gameContinue == false)
+				break;
+		};
+	}
+	else {
+		cout << "You are X!" << endl;
+		A.conditionSide = "cross";
+		cout << "Choose the cage to put cross!" << endl;
+		cin >> yourTurn;
+		while (A.checkOFExist(yourTurn) == true) {
+			cout << "This cage is not free! Try again" << endl;
+			cin >> yourTurn;
+		};
+		A.markedSlots[0] = yourTurn;
+		A.inputToFieldCross(yourTurn);
+		enemyTurn = rand() % 10;
+		while (A.checkOFExist(enemyTurn) == true || enemyTurn == 0) {
+			enemyTurn = rand() % 10;
+		};
+		A.markedSlots[1] = enemyTurn;
+		A.inputToFieldZero(enemyTurn);
+		cout << "Enemy has marked the cage " << enemyTurn << endl;
+		int j = 2;
+		while (A.freeslots != 0) {
+			cin >> yourTurn;
+			while (A.checkOFExist(yourTurn) == true) {
+				cout << "This cage is not free! Try again" << endl;
+				cin >> yourTurn;
+			};
+			A.inputToFieldCross(yourTurn);
+			A.markedSlots[j] = yourTurn;
+			j++;
+			A.checkWinner();
+			if (A.gameContinue == false)
+				break;
+			while (A.checkOFExist(enemyTurn) == true || enemyTurn == 0) {
+				enemyTurn = rand() % 10;
+			};
+			A.inputToFieldZero(enemyTurn);
+			A.markedSlots[j] = enemyTurn;
+			j++;
+			cout << "Enemy has marked the cage " << enemyTurn << endl;
+			A.checkWinner();
+			if (A.gameContinue == false)
+				break;
+		};
+	};
+}
